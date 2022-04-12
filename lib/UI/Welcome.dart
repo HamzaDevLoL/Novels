@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:novels/user/Login.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-
+import 'package:novels/user/Login.dart';
 class Welcome extends StatefulWidget {
   const Welcome({Key? key}) : super(key: key);
 
@@ -13,6 +14,7 @@ class _WelcomeState extends State<Welcome> {
   PageController pageController = PageController(initialPage: 0);
   int page = 0;
 
+  // this function to change Page index
   void changePage(page) {
     setState(() {
       this.page = page;
@@ -121,13 +123,17 @@ class _WelcomeState extends State<Welcome> {
                             borderRadius: BorderRadius.circular(10)),
                         child: const Center(
                             child: Text(
-                          "Next",
+                          "التالي",
                           style: TextStyle(fontSize: 19, color: Colors.white),
                         ))),
                     onTap: () {
                       pageController.nextPage(
                           duration: const Duration(microseconds: 1000),
-                          curve: Curves.bounceInOut);
+                          curve: Curves.easeIn);
+                      if(page==2){
+                        Navigator.of(context).pushReplacement(MaterialPageRoute(
+                        builder: (BuildContext context) => Login()));
+                      }
                     },
                   )
                 ])));
