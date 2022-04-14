@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/get_navigation/get_navigation.dart';
+import 'package:novels/UI/BottomNavigationBar.dart';
 import 'package:novels/UI/Welcome.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
@@ -16,9 +18,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.leanBack);
-    return const GetMaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      localizationsDelegates:  [
+      localizationsDelegates: [
         GlobalCupertinoLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
@@ -26,8 +28,8 @@ class MyApp extends StatelessWidget {
       supportedLocales: [
         Locale("ar", "AE"), // OR Locale('ar', 'AE') OR Other RTL locales
       ],
-      locale:  Locale("ar", "AE"),
-      home:  Directionality(
+      locale: Locale("ar", "AE"),
+      home: Directionality(
         textDirection: TextDirection.rtl,
         child: Splash(),
       ),
@@ -43,26 +45,17 @@ class Splash extends StatefulWidget {
 }
 
 class _SplashState extends State<Splash> {
-
-
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     Timer(Duration(seconds: 1), () {
-      Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (BuildContext context) => Welcome()));
+      Get.off(Welcome());
     });
-
   }
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: SafeArea(child:
-      Center(child: Text("Novels")))
-    );
+    return const Scaffold(body: SafeArea(child: Center(child: Text("Novels"))));
   }
 }
-
-

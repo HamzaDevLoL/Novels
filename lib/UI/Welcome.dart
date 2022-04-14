@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:novels/user/Login.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:novels/user/Login.dart';
+
 class Welcome extends StatefulWidget {
   const Welcome({Key? key}) : super(key: key);
 
@@ -85,30 +86,23 @@ class _WelcomeState extends State<Welcome> {
                           ])
                         ],
                       )),
-
                   SmoothPageIndicator(
                     controller: pageController, // PageController
-                    count:3,
+                    count: 3,
                     effect: CustomizableEffect(
-                      activeDotDecoration:
-                      DotDecoration(
+                      activeDotDecoration: DotDecoration(
                         width: 32,
                         height: 12,
                         color: const Color(0xffFF6EA1),
                         rotationAngle: 180,
                         verticalOffset: 0,
-                        borderRadius:
-                        BorderRadius
-                            .circular(24),
+                        borderRadius: BorderRadius.circular(24),
                       ),
-                      dotDecoration:
-                      DotDecoration(
+                      dotDecoration: DotDecoration(
                         width: 24,
                         height: 12,
                         color: Colors.grey,
-                        borderRadius:
-                        BorderRadius
-                            .circular(16),
+                        borderRadius: BorderRadius.circular(16),
                         verticalOffset: 0,
                       ),
                     ),
@@ -130,9 +124,9 @@ class _WelcomeState extends State<Welcome> {
                       pageController.nextPage(
                           duration: const Duration(microseconds: 1000),
                           curve: Curves.easeIn);
-                      if(page==2){
+                      if (page == 2) {
                         Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (BuildContext context) => Login()));
+                            builder: (BuildContext context) => Login()));
                       }
                     },
                   )

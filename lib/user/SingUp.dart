@@ -1,33 +1,30 @@
-import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:novels/UI/BottomNavigationBar.dart';
-import 'package:novels/user/SingUp.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
+import 'dart:convert';
 
-class Login extends StatefulWidget {
-  const Login({Key? key}) : super(key: key);
+import 'package:novels/UI/BottomNavigationBar.dart';
+
+class Sing_Up extends StatefulWidget {
+  const Sing_Up({Key? key}) : super(key: key);
 
   @override
-  State<Login> createState() => _LoginState();
+  State<Sing_Up> createState() => _Sing_UpState();
 }
 
-class _LoginState extends State<Login> {
+class _Sing_UpState extends State<Sing_Up> {
   var email = "";
   bool on = true;
-  Future Login(String email, String password) async {
+  Future Sing_Up(String email, String name, String password) async {
     final response = await http.post(
-      Uri.parse("http://192.168.194.203:1600/user/a/login"),
+      Uri.parse("http://192.168.194.203:1600/user/b/new"),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
-      body: jsonEncode(<String, String>{
-        'email': "Hamza.dev097@gmail.com",
-        'password': "Hamza",
-      }),
+      body: jsonEncode(
+          <String, String>{'email': email, 'password': password, 'name': name}),
     );
     if (json.decode(response.body)["status"] == true) {
       Get.off(BottomNavigationBarClass());
@@ -40,6 +37,8 @@ class _LoginState extends State<Login> {
 
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final TextEditingController nameController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,6 +52,42 @@ class _LoginState extends State<Login> {
             height: 150,
             child: Image.asset("assets/images/welcom.png")),
         SizedBox(height: 50),
+        Container(
+          height: 60,
+          margin: EdgeInsets.only(left: 10, right: 10),
+          child: TextField(
+            controller: nameController,
+            onChanged: (value) {
+              setState(() {});
+            },
+            decoration: InputDecoration(
+              enabledBorder: const OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                borderSide: BorderSide(color: Color(0xffCECECE), width: 2),
+              ),
+              focusedBorder: const OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                borderSide: BorderSide(
+                  color: Color(0xffFF6EA1),
+                  width: 2.5,
+                ),
+              ),
+              prefixIcon: Icon(
+                Icons.person,
+                color: Color(0xffFF6EA1),
+              ),
+              hintStyle: TextStyle(
+                color: Colors.grey,
+                fontSize: 13,
+              ),
+              hintText: "اسم المستخدم",
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
+          ),
+        ),
+        SizedBox(height: 15),
         Container(
           height: 60,
           margin: EdgeInsets.only(left: 10, right: 10),
@@ -88,7 +123,7 @@ class _LoginState extends State<Login> {
             ),
           ),
         ),
-        SizedBox(height: 20),
+        SizedBox(height: 15),
         Container(
           height: 60,
           margin: EdgeInsets.only(left: 10, right: 10),
@@ -133,14 +168,8 @@ class _LoginState extends State<Login> {
             ),
           ),
         ),
-        Container(
-          padding: const EdgeInsets.only(right: 8.0),
-          height: 33,
-          child: InkWell(
-              child: Text(
-            "نسيت كلمة المرور",
-            style: TextStyle(color: Colors.grey),
-          )),
+        SizedBox(
+          height: 20,
         ),
         InkWell(
           child: Container(
@@ -160,21 +189,25 @@ class _LoginState extends State<Login> {
                   borderRadius: BorderRadius.circular(20)),
               child: const Center(
                   child: Text(
-                "تسجيل الدخول",
+                "انشاء الحساب",
                 style: TextStyle(fontSize: 19, color: Colors.white),
               ))),
           onTap: () {
-            Login(emailController.text, passwordController.text);
+            Sing_Up(emailController.text, nameController.text,
+                passwordController.text);
           },
+        ),
+        SizedBox(
+          height: 5,
         ),
         Center(
           child: Text("او", style: TextStyle(fontSize: 14, color: Colors.grey)),
         ),
+        SizedBox(
+          height: 3,
+        ),
         InkWell(
-          onTap: () {
-            Navigator.of(context).pushReplacement(MaterialPageRoute(
-                builder: (BuildContext context) => Sing_Up()));
-          },
+          onTap: () {},
           child: Center(
             child: Text(
               "لا تملك حساب ؟ انشاء حساب",
