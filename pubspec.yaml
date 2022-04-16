@@ -38,6 +38,7 @@ dependencies:
   custom_navigation_bar: ^0.8.2
   http: ^0.13.4
   carousel_slider: ^4.0.0
+  device_preview: ^1.0.0
 
 dev_dependencies:
   flutter_test:

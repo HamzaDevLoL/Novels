@@ -6,9 +6,17 @@ import 'package:get/get_navigation/get_navigation.dart';
 import 'package:novels/UI/BottomNavigationBar.dart';
 import 'package:novels/UI/Welcome.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:device_preview/device_preview.dart';
+
+
+
+// runApp(DevicePreview(
+//     enabled: true,
+//     builder: (context) => MyApp(),
+//   ));
 
 void main() {
-  runApp(const MyApp());
+  runApp( const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -18,7 +26,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.leanBack);
-    return GetMaterialApp(
+    return const GetMaterialApp(
       debugShowCheckedModeBanner: false,
       localizationsDelegates: [
         GlobalCupertinoLocalizations.delegate,
@@ -26,7 +34,7 @@ class MyApp extends StatelessWidget {
         GlobalWidgetsLocalizations.delegate,
       ],
       supportedLocales: [
-        Locale("ar", "AE"), // OR Locale('ar', 'AE') OR Other RTL locales
+        Locale("ar", "AE"),
       ],
       locale: Locale("ar", "AE"),
       home: Directionality(
@@ -47,7 +55,6 @@ class Splash extends StatefulWidget {
 class _SplashState extends State<Splash> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     Timer(Duration(seconds: 1), () {
       Get.off(Welcome());
