@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/get_navigation.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:novels/UI/BottomNavigationBar.dart';
 import 'package:novels/UI/Welcome.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -15,8 +16,9 @@ import 'package:device_preview/device_preview.dart';
 //     builder: (context) => MyApp(),
 //   ));
 
+
 void main() {
-  runApp( const MyApp());
+   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -25,7 +27,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.leanBack);
+    // SystemChrome.setEnabledSystemUIMode(SystemUiMode.leanBack);
     return const GetMaterialApp(
       debugShowCheckedModeBanner: false,
       localizationsDelegates: [

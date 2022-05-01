@@ -16,8 +16,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   var list = [
-    "",
-    "",
+    "assets/images/ads.png",
+    "assets/images/welcom.png",
   ];
   var novala = [];
   @override
@@ -30,8 +30,11 @@ class _HomePageState extends State<HomePage> {
 
   Future get_data() async {
     final response = await http.get(
-      Uri.parse("http://192.168.194.203:1600/reader/noval/get"),
-    );
+        Uri.parse("http://192.168.194.203:1600/reader/noval/get"),
+        headers: {
+          "Accept": "application/json",
+          "Access-Control_Allow_Origin": "*"
+        });
     var jsondata = jsonDecode(response.body);
     setState(() {
       print(response.body);
@@ -48,18 +51,18 @@ class _HomePageState extends State<HomePage> {
               items: list
                   .map<Widget>(
                     (item) => Container(
-                  height: 120,
-                  width: 200,
-                  margin: const EdgeInsets.all(7),
-                  child: ClipRRect(
-                      borderRadius: BorderRadius.circular(20),
-                      child: Image.asset(
-                        "assets/images/welcom.png",
-                        fit: BoxFit.contain,
-                        alignment: Alignment.center,
-                      )),
-                ),
-              )
+                      height: MediaQuery.of(context).size.height / 3.2,
+                      width: MediaQuery.of(context).size.height / 1.2,
+                      margin: const EdgeInsets.all(7),
+                      child: ClipRRect(
+                          borderRadius: BorderRadius.circular(20),
+                          child: Image.asset(
+                            item.toString(),
+                            fit: BoxFit.fill,
+                            alignment: Alignment.center,
+                          )),
+                    ),
+                  )
                   .toList(),
               options: CarouselOptions(
                 autoPlay: true,
@@ -76,9 +79,10 @@ class _HomePageState extends State<HomePage> {
             padding: EdgeInsets.only(right: 8),
             child: Text(
               "محتوى رائج:",
-              style: TextStyle(color: Colors.grey),
+              style: TextStyle(color: Colors.grey, fontSize: 19),
             ),
           ),
+          const SizedBox(height: 7),
           Column(
             children: [
               Row(
@@ -90,16 +94,66 @@ class _HomePageState extends State<HomePage> {
                     const CircularProgressIndicator()
                 ],
               ),
+              const SizedBox(
+                height: 10,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   if (novala.length > 0)
-                    for (int i = 3; i < 6; i++)  noval(novala[i])
+                    for (int i = 3; i < 6; i++) noval(novala[i])
                   else
                     const CircularProgressIndicator()
                 ],
               )
             ],
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          const Padding(
+            padding: EdgeInsets.only(right: 8),
+            child: Text(
+              "روايات مترجمة:",
+              style: TextStyle(color: Colors.grey, fontSize: 19),
+            ),
+          ),
+
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(children: [
+              if (novala.length > 0)
+                for (int i = 0; i < 6; i++)
+                  Container(
+                    child: noval(novala[i]),
+                    margin: const EdgeInsets.all(11),
+                  )
+              else
+                const CircularProgressIndicator()
+            ]),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          const Padding(
+            padding: EdgeInsets.only(right: 8),
+            child: Text(
+              "روايات مؤلفة:",
+              style: TextStyle(color: Colors.grey, fontSize: 19),
+            ),
+          ),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(children: [
+              if (novala.length > 0)
+                for (int i = 0; i < 6; i++)
+                  Container(
+                    child: noval(novala[i]),
+                    margin: const EdgeInsets.all(11),
+                  )
+              else
+                const CircularProgressIndicator()
+            ]),
           )
         ],
       ),
@@ -117,32 +171,48 @@ class noval extends StatelessWidget {
       child: Container(
           height: 160,
           width: 110,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15.0),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  spreadRadius: 5,
+                  blurRadius: 7,
+                  offset: const Offset(0, 2),
+                )
+              ]),
           child: Stack(
             children: [
-              Image.network(
-                  "http://192.168.194.203:1600/photo/get/Noval?photo=" +
-                      (novala["noval_image"]).toString(),
-                  fit: BoxFit.contain),
+              ClipRRect(
+                  borderRadius: BorderRadius.circular(15.0),
+                  child: Image.network(
+                      "http://192.168.194.203:1600/photo/get/Noval?photo=" +
+                          (novala["noval_image"]).toString(),
+                      fit: BoxFit.fill)),
               Positioned(
-                bottom: 2,
-                right: 2,
+                bottom: 4,
+                right: 5,
                 child: Container(
-                  width: MediaQuery.of(context).size.width/9,
-                  height: MediaQuery.of(context).size.height/29,
+                  width: MediaQuery.of(context).size.width / 9,
+                  height: MediaQuery.of(context).size.height / 29,
                   decoration: BoxDecoration(
-                      color: Color.fromRGBO(255, 110, 161, 0.7),
+                      color: const Color.fromRGBO(255, 110, 161, 0.7),
                       borderRadius: BorderRadius.circular(5)),
-                  margin: EdgeInsets.only(bottom: 7),
-                  child:  Row(
+                  margin: const EdgeInsets.only(bottom: 7),
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                       Text(
+                      Text(
                         'فصل:',
-                        style: TextStyle(fontSize: MediaQuery.of(context).size.width/29, color: Colors.white),
+                        style: TextStyle(
+                            fontSize: MediaQuery.of(context).size.width / 29,
+                            color: Colors.white),
                       ),
-                       Text(
+                      Text(
                         '8',
-                        style: TextStyle(fontSize: MediaQuery.of(context).size.width/29, color: Colors.white),
+                        style: TextStyle(
+                            fontSize: MediaQuery.of(context).size.width / 29,
+                            color: Colors.white),
                       ),
                     ],
                   ),

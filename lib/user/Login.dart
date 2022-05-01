@@ -21,19 +21,19 @@ class _LoginState extends State<Login> {
   Future Login(String email, String password) async {
     final response = await http.post(
       Uri.parse("http://192.168.194.203:1600/user/a/login"),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(<String, String>{
-        'email': "Hamza.dev097@gmail.com",
-        'password': "Hamza",
-      }),
+        headers:<String, String> {
+          'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8',
+        },
+        body: <String, String>{
+          'email': "Hamza.dev097@gmail.com",
+          'password': "Hamza",
+        },
     );
     if (json.decode(response.body)["status"] == true) {
       Get.off(BottomNavigationBarClass());
     } else {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text("err"),
+        content: Text(response.body.toString()),
       ));
     }
   }

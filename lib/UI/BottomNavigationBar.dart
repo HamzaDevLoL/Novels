@@ -36,23 +36,28 @@ class _BottomNavigationBarClassState extends State<BottomNavigationBarClass> {
         backgroundColor: Colors.white,
         showSelectedLabels: false,
         showUnselectedLabels: false,
+      
         currentIndex: _currentIndex,
         items: const [
           BottomNavigationBarItem(
+          
             icon: Icon(Icons.home_outlined,color: Colors.black45,size: 35,),
             label: "",
             activeIcon: Icon(Icons.home,color: Colors.red,size: 35,),
           ),
           BottomNavigationBarItem(
+
             icon: Icon(Icons.favorite_border,color: Colors.black45,size: 35),
             label: "",
             activeIcon: Icon(Icons.favorite,color: Colors.red,size: 35,),
           ),
           BottomNavigationBarItem(
+            
               icon: Icon(Icons.book_rounded,color: Colors.black45,size: 35),
               label: "",
               activeIcon: Icon(Icons.book_rounded,color: Colors.red,size: 35,),
-          )
+          ),
+          
         ]),
     );
   }
